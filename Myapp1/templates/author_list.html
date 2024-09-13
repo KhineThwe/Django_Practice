@@ -29,8 +29,8 @@
                 <a href="{{ author.video.url }}" class="btn btn-info" target="_blank">View Video</a>
               </td>
                <td>
-                <a href="{% url 'author_update' id=author.id %}" class="btn btn-primary">Edit</a>
-                <a href="{% url 'author_delete' id=author.id %}" class="btn btn-danger">Delete</a>
+                <a href="{% url 'author_update' author.pk %}" class="btn btn-primary">Edit</a>
+                <a href="{% url 'author_delete' author.pk %}" class="btn btn-danger">Delete</a>
               </td>
              </tr>
           {% endfor %}

@@ -24,14 +24,21 @@ def author_create(request):
         form = AuthorForm()
     return render(request,'author_form.html',{'form':form,'action':'Create'})
 
-def author_delete(request,id):
-    Author.objects.get(id=id).delete()
+def author_delete(request,pk):
+    Author.objects.get(pk=pk).delete()
     return redirect('list_author')
 
-def author_update(request,id):
-    author = Author.objects.get(id=id)
-    form = AuthorForm(instance=author)
+def author_update(request,pk):
+    author = get_object_or_404(Author,pk=pk)
+    if request.method == 'POST':
+        form = AuthorForm(request.POST,request.FILES,instance=author)#takes as json type
+        if form.is_valid():
+            form.save()
+            return redirect('list_author')
+    else:
+        form = AuthorForm(instance=author)
     return render(request,'author_form.html',{'form':form,'action':'Update'})
+    
 
 def book_list(request):
     return render(request,'book_list.html')

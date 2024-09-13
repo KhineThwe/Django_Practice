@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    <h1 class="mb-4">Authors Form</h1>
+    <h1 class="mb-4">{% if action == 'Create' %}Author Create {% else %}Author Update {% endif %}</h1>
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
 
@@ -42,6 +42,7 @@
           {% endfor %}
         </div>
         {% endif %}
+        <img src="#" id="imagePreview" alt="" class="img-thumbnail" style="display:none;max-width:200px;">
       </div>
 
       <div class="mb-3">
@@ -54,7 +55,32 @@
           {% endfor %}
         </div>
         {% endif %}
-      </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+        <video id="videoPreview" class="mt-2" style="display: none; max-width: 300px;" controls>
+          <source src="#" type="video/mp4">
+          Your browser does not support the video tag.
+      </video>      </div>
+      <button type="submit" class="btn btn-primary">{{action}}</button>
     </form>
+
+<script>
+  document.getElementById('id_images').addEventListener('change', function(event) {
+    var reader = new FileReader();
+    reader.onload = function(){
+        var imagePreview = document.getElementById('imagePreview');
+        imagePreview.src = reader.result;
+        imagePreview.style.display = 'block';
+    }
+    reader.readAsDataURL(event.target.files[0]);
+})
+document.getElementById('id_videos').addEventListener('change', function(event) {
+  var file = event.target.files[0];
+  if (file) {
+      var videoPreview = document.getElementById('videoPreview');
+      var videoSource = videoPreview.querySelector('source');
+      videoSource.src = URL.createObjectURL(file);
+      videoPreview.style.display = 'block';
+      videoPreview.load();  // Reload the video element to load the selected file
+  }
+})
+</script>
 {% endblock %}
