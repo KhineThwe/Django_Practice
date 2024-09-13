@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Author List
+{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">Authors Form</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="mb-3">
+          {{ form.name.label_tag }}
+          {{ form.name }}
+          {% if form.name.errors %}
+          <div class="form-text text-danger">
+            {% for error in form.name.errors%}
+                <p>{{error}}</p>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+        <div class="mb-3">
+          {{ form.birthdate.label_tag }}
+          {{ form.birthdate }}
+          {% if form.birthdate.errors %}
+          <div class="form-text text-danger">
+            {% for error in form.birthdate.errors%}
+                <p>{{error}}</p>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+
+      <div class="mb-3">
+        {{ form.images.label_tag }}
+        {{ form.images }}
+        {% if form.images.errors %}
+        <div class="form-text text-danger">
+          {% for error in form.images.errors%}
+              <p>{{error}}</p>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="mb-3">
+        {{ form.videos.label_tag }}
+        {{ form.videos }}
+        {% if form.videos.errors %}
+        <div class="form-text text-danger">
+          {% for error in form.videos.errors%}
+              <p>{{error}}</p>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+{% endblock %}
