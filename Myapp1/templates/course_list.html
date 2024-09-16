@@ -1,9 +1,30 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
-{% block title %}
-    Author List
-{% endblock %}
+{% block title %}Courses{% endblock %}
 
 {% block content %}
-    <h1>Book Store List</h1>
+    <h1 class="mb-4">Courses</h1>
+    <a href="{% url 'add_course' %}" class="btn btn-success mb-3">Add Course</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Students</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for course in courses %}
+                <tr>
+                    <td>{{ course.title }}</td>
+                    <td>
+                        <ul>
+                            {% for student in course.students.all %}
+                                <li>{{ student.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

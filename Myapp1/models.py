@@ -7,7 +7,7 @@ class UserProfile(models.Model):
     bio = models.TextField()
     
     def __str__(self):
-        return self.user.username,self.user.email
+        return self.user.username
 
 class Author(models.Model):
     name = models.CharField(max_length=100)
@@ -40,3 +40,12 @@ class Course(models.Model):
     def __str__(self):
         return self.title
 
+class Message(models.Model):
+    sender = models.ForeignKey(User,on_delete=models.CASCADE)
+    receiver = models.ForeignKey(Student,on_delete=models.CASCADE)
+    content = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f'Message from {self.sender} to {self.receiver}'
+    
